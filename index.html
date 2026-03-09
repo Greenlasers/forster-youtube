@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Forster Fitness Reviews | Curadoria Premium em Home Gym</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ══ TRACKING ═══════════════════════════════════════════════════════════ -->
+  <!-- Google Analytics 4 — SUBSTITUA G-XXXXXXXXXX pelo seu Measurement ID   -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Meta Pixel — SUBSTITUA PIXEL_ID pelo ID do seu Gerenciador de Anúncios -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','PIXEL_ID');
+    fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+
+<style>
+:root {
+  --panel: #141414;
+  --text: #f2f2f2;
+  --muted: #b5b5b5;
+  --accent: #e10600;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    url("https://www.transparenttextures.com/patterns/3px-tile.png"),
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,0.18) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(255,255,255,0.03) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0c0c 0%, #0b0b0b 100%);
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 96px 40px;
+}
+
+/* HERO */
+.hero {
+  padding: 120px 40px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.hero-content h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  max-width: 520px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(225,6,0,0.3);
+}
+
+.hero-logo-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo-wrapper img {
+  max-width: 420px;
+  width: 100%;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+@media(max-width:900px){
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .hero-logo-wrapper {
+    margin-top: 60px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+}
+
+/* METRICS */
+.metrics {
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.metric-box {
+  background: var(--panel);
+  padding: 32px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.metric-box h3 {
+  font-size: 52px;
+  color: var(--accent);
+  margin: 0 0 8px 0;
+}
+
+.metric-box p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* SECTIONS */
+.section { margin-top: 120px; }
+.section h2 { font-size: 40px; margin: 0 0 32px 0; }
+
+/* LAYOUTS DE VÍDEO */
+.video-feature {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+.video-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* EFEITO NETFLIX (CARD) */
+.video-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #0f0f0f;
+  transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
+  transform: translateY(16px);
+  opacity: 0;
+}
+
+.video-card.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.video-card iframe{
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  border-radius: 18px;
+  transform: scale(1.01);
+  transition: transform .6s ease;
+}
+
+.video-overlay{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding: 22px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.88) 0%,
+    rgba(0,0,0,0.55) 45%,
+    rgba(0,0,0,0) 100%
+  );
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.video-title{
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+  transform: translateY(10px);
+  transition: transform .35s ease;
+}
+
+.video-meta{
+  margin-top: 8px;
+  font-size: 13px;
+  color: #cfcfcf;
+  opacity: .92;
+  transform: translateY(10px);
+  transition: transform .35s ease;
+}
+
+.badge{
+  position:absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--accent);
+  color:#fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+/* “Empurrar lateralmente” (sibling shrink dentro do grupo) */
+.video-group:hover .video-card{
+  transform: scale(.94);
+  filter: saturate(.85) brightness(.9);
+}
+
+.video-group:hover .video-card.is-visible{
+  transform: scale(.94);
+}
+
+.video-group .video-card:hover{
+  transform: scale(1.07) !important;
+  filter: none;
+  z-index: 10;
+  box-shadow: 0 30px 90px rgba(0,0,0,.72);
+}
+
+.video-group .video-card:hover iframe{
+  transform: scale(1.10);
+}
+
+.video-group .video-card:hover .video-overlay{
+  opacity: 1;
+}
+
+.video-group .video-card:hover .video-title,
+.video-group .video-card:hover .video-meta{
+  transform: translateY(0);
+}
+
+/* CTA */
+.cta-section{
+  margin-top: 160px;
+  max-width: 760px;
+  border-left: 3px solid var(--accent);
+  padding-left: 32px;
+}
+
+.cta-section h2{
+  font-size: 40px;
+  margin: 0 0 20px 0;
+}
+
+.cta-section p{
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  margin-top: 32px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cta-buttons a {
+  padding: 14px 36px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: #222; color: #fff; border: 1px solid #333; }
+
+/* TOPBAR */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(12,12,12,.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.topbar-inner{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.topbar-brand{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #f2f2f2;
+  font-weight: 700;
+  font-size: 15px;
+}
+.topbar-logo{
+  height: 36px;
+  width: auto;
+  border-radius: 6px;
+  display: block;
+}
+.topbar-cta{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 40px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: .2s ease;
+}
+.topbar-cta:hover{ opacity: .88; transform: translateY(-1px); }
+@media(max-width:600px){
+  .topbar-inner{ padding: 0 16px; }
+  .topbar-cta{ display: none; }
+}
+
+/* FOOTER */
+footer{
+  margin-top: 140px;
+  background: #0f0f0f;
+  padding: 80px 0;
+}
+
+.footer-wrapper{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 120px;
+  align-items: start;
+}
+
+.footer-col{
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col h3, .footer-col h4{
+  margin: 0 0 14px 0;
+}
+
+.footer-col p, .footer-col a{
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  text-decoration: none;
+}
+
+.footer-col a:hover{ color:#fff; }
+
+.footer-bottom{
+  text-align: center;
+  margin-top: 70px;
+  color: #666;
+  font-size: 13px;
+}
+
+/* MENSAGENS */
+.note{
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px){
+  .container{ padding: 72px 22px; }
+  .hero{ grid-template-columns: 1fr; gap: 34px; }
+  .hero-logo{ justify-content:flex-start; }
+  .metrics{ grid-template-columns: 1fr; }
+  .video-feature{ grid-template-columns: 1fr; }
+  .profile-grid{ grid-template-columns: 1fr; }
+  .footer-wrapper{ grid-template-columns: 1fr; row-gap: 40px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="#top">
+      <img src="logo-forster.svg" class="topbar-logo" alt="Forster Fitness">
+      <span>Forster Fitness Reviews</span>
+    </a>
+    <a class="topbar-cta" href="https://youtube.com/@forsterfitnessreviews" target="_blank" rel="noopener">
+      Assistir no YouTube
+    </a>
+  </div>
+</header>
+
+<div id="top" class="container">
+
+  <!-- HERO -->
+<section class="hero">
+
+  <div class="hero-grid">
+
+    <!-- TEXTO -->
+    <div class="hero-content">
+      <h1>Antes de escolher seu equipamento, assista isso.</h1>
+      <p>Canal referência nacional em análise técnica de equipamentos premium.</p>
+
+      <a href="https://youtube.com/@forsterfitnessreviews" target="_blank" class="hero-cta">
+        <svg viewBox="0 0 576 512" width="22" height="22">
+          <path fill="#fff" d="M549.7 124.1c-6.3-23.8-25-42.5-48.8-48.8C456.7 64 288 64 288 64s-168.7 0-212.9 11.3c-23.8 6.3-42.5 25-48.8 48.8C16 168.3 16 256 16 256s0 87.7 10.3 131.9c6.3 23.8 25 42.5 48.8 48.8C119.3 448 288 448 288 448s168.7 0 212.9-11.3c23.8-6.3 42.5-25 48.8-48.8C560 343.7 560 256 560 256s0-87.7-10.3-131.9z"/>
+          <polygon fill="#000" points="232,336 232,176 360,256"/>
+        </svg>
+        Assistir no YouTube
+      </a>
+    </div>
+
+    <!-- LOGO -->
+    <div class="hero-logo-wrapper">
+      <img src="logo-forster.svg" alt="Forster Fitness">
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- METRICS -->
+  <section class="metrics">
+    <div class="metric-box">
+      <h3>+100</h3>
+      <p>Equipamentos analisados</p>
+    </div>
+    <div class="metric-box">
+      <h3>+6</h3>
+      <p>Milhões de Views</p>
+    </div>
+    <div class="metric-box">
+      <h3>+400</h3>
+      <p>Vídeos Autorais</p>
+    </div>
+  </section>
+
+  <!-- MOST VIEWED -->
+  <section class="section">
+    <h2>Comece por aqui</h2>
+
+    <div class="video-feature">
+      <div id="mv_main" class="video-group">
+        <!-- injetado via JS -->
+      </div>
+
+      <div class="video-side video-group">
+        <div id="mv_side1"></div>
+        <div id="mv_side2"></div>
+      </div>
+    </div>
+
+    <div id="mv_note" class="note"></div>
+  </section>
+
+  <!-- SITE ONLY -->
+  <section class="section">
+    <h2>Escolha seu perfil</h2>
+
+    <div class="profile-grid video-group">
+      <div id="so_1"></div>
+      <div id="so_2"></div>
+      <div id="so_3"></div>
+    </div>
+
+    <div id="so_note" class="note"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Decisão informada gera resultado.</h2>
+    <p>
+      Nosso compromisso é elevar o padrão das academias residenciais no Brasil,
+      combinando curadoria técnica, biomecânica aplicada e equipamentos premium
+      com suporte especializado.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="https://fitnessdesconto.com" target="_blank" class="btn-primary">
+        Acessar Fitness Desconto
+      </a>
+      <a href="/consultoria" class="btn-secondary">
+        Falar com especialista
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-wrapper">
+    <div class="footer-col">
+      <h3>Forster Fitness</h3>
+      <p>
+        Curadoria premium de equipamentos fitness e consultoria especializada
+        para academias residenciais, condomínios e projetos sob medida.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Links Estratégicos</h4>
+      <a href="https://fitnessdesconto.com" target="_blank">Fitness Desconto</a>
+      <a href="/consultoria">Consultoria</a>
+      <a href="https://youtube.com/@forsterfitnessreviews" target="_blank">YouTube</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Especialidades</h4>
+      <p>• Home Gym Premium</p>
+      <p>• Academias em Condomínio</p>
+      <p>• Curadoria Técnica</p>
+      <p>• Performance & Biomecânica</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Forster Fitness Reviews • Todos os direitos reservados
+  </div>
+</footer>
+
+<script>
+/* ===============================
+   CONFIG
+================================ */
+const API_KEY = "AIzaSyCkOfr2EaiUIHkApVkEXGIVhnYsAEQ0oIA";
+const CHANNEL_ID = "UCUsSOU0WfDu755GN9cOnJAg";
+const SITE_PLAYLIST_TITLE = "site_only"; // precisa estar PÚBLICA
+
+/* ===============================
+   HELPERS
+================================ */
+function parseDuration(duration) {
+  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  const hours = parseInt(match?.[1] || 0, 10);
+  const minutes = parseInt(match?.[2] || 0, 10);
+  const seconds = parseInt(match?.[3] || 0, 10);
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
+function formatViews(n) {
+  if (!Number.isFinite(n)) return "";
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(".0","") + "M views";
+  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(".0","") + "K views";
+  return n + " views";
+}
+
+function safeText(s) {
+  return (s || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function buildCardHTML(video, opts = {}) {
+  const badge = opts.badge ? `<div class="badge">${safeText(opts.badge)}</div>` : "";
+  const viewsLine = (typeof video.views === "number") ? formatViews(video.views) : "";
+  const delay = typeof opts.delay === "number" ? `style="transition-delay:${opts.delay}ms"` : "";
+
+  return `
+    <div class="video-card" ${delay}>
+      ${badge}
+      <iframe src="https://www.youtube.com/embed/${video.id}?rel=0" allowfullscreen></iframe>
+      <div class="video-overlay">
+        <div class="video-title" onclick="window.open('https://youtube.com/watch?v=${video.id}','_blank')">
+          ${safeText(video.title)}
+        </div>
+        <div class="video-meta">${safeText(viewsLine)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function mountCard(containerId, video, opts = {}) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = buildCardHTML(video, opts);
+
+  // animação em cascata
+  const card = el.querySelector(".video-card");
+  requestAnimationFrame(() => card.classList.add("is-visible"));
+}
+
+function setNote(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg || "";
+}
+
+/* ===============================
+   YOUTUBE API
+================================ */
+async function fetchJson(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return await r.json();
+}
+
+async function getUploadsPlaylistId() {
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
+  const data = await fetchJson(url);
+  return data?.items?.[0]?.contentDetails?.relatedPlaylists?.uploads || null;
+}
+
+async function getMostViewedTop3NoShorts() {
+  const uploadsId = await getUploadsPlaylistId();
+  if (!uploadsId) return [];
+
+  // Pega até 50 uploads (suficiente na prática pro top)
+  const urlItems = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${uploadsId}&key=${API_KEY}`;
+  const itemsData = await fetchJson(urlItems);
+
+  const ids = (itemsData.items || [])
+    .map(i => i?.snippet?.resourceId?.videoId)
+    .filter(Boolean);
+
+  if (!ids.length) return [];
+
+  const urlVideos = `https://www.googleapis.com/youtube/v3/videos?part=statistics,contentDetails,snippet&id=${ids.join(",")}&key=${API_KEY}`;
+  const videosData = await fetchJson(urlVideos);
+
+  const list = (videosData.items || []).map(v => ({
+    id: v.id,
+    title: v?.snippet?.title || "",
+    views: parseInt(v?.statistics?.viewCount || "0", 10),
+    duration: parseDuration(v?.contentDetails?.duration || "PT0S")
+  }));
+
+  // Ignora shorts
+  const filtered = list.filter(v => v.duration > 60);
+
+  // Top por views
+  filtered.sort((a, b) => b.views - a.views);
+
+  return filtered.slice(0, 3);
+}
+
+async function findPlaylistIdByTitle(titleLower) {
+  const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${CHANNEL_ID}&maxResults=50&key=${API_KEY}`;
+  const data = await fetchJson(url);
+  const pl = (data.items || []).find(p => (p?.snippet?.title || "").toLowerCase() === titleLower);
+  return pl?.id || null;
+}
+
+async function getPlaylistTop3NoShorts(playlistId) {
+  const urlItems = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${playlistId}&key=${API_KEY}`;
+  const itemsData = await fetchJson(urlItems);
+
+  const ids = (itemsData.items || [])
+    .map(i => i?.snippet?.resourceId?.videoId)
+    .filter(Boolean);
+
+  if (!ids.length) return [];
+
+  const urlVideos = `https://www.googleapis.com/youtube/v3/videos?part=statistics,contentDetails,snippet&id=${ids.join(",")}&key=${API_KEY}`;
+  const videosData = await fetchJson(urlVideos);
+
+  const list = (videosData.items || []).map(v => ({
+    id: v.id,
+    title: v?.snippet?.title || "",
+    views: parseInt(v?.statistics?.viewCount || "0", 10),
+    duration: parseDuration(v?.contentDetails?.duration || "PT0S")
+  }));
+
+  // Ignora shorts
+  const filtered = list.filter(v => v.duration > 60);
+
+  return filtered.slice(0, 3);
+}
+
+/* ===============================
+   LOAD
+================================ */
+async function loadPage() {
+  try {
+    // 1) Mais vistos
+    const mostViewed = await getMostViewedTop3NoShorts();
+
+    if (mostViewed.length < 3) {
+      setNote("mv_note", "Não foi possível carregar os 3 vídeos mais vistos (verifique API Key / Channel ID / quota).");
+    } else {
+      // cascata: 0ms / 120ms / 240ms
+      mountCard("mv_main", mostViewed[0], { badge: "Mais visto", delay: 0 });
+      mountCard("mv_side1", mostViewed[1], { delay: 120 });
+      mountCard("mv_side2", mostViewed[2], { delay: 240 });
+      setNote("mv_note", "");
+    }
+
+    // 2) Playlist site_only
+    const plId = await findPlaylistIdByTitle(SITE_PLAYLIST_TITLE.toLowerCase());
+
+    if (!plId) {
+      setNote("so_note", "Playlist 'site_only' não encontrada. Confirme o nome exato e deixe ela PÚBLICA.");
+      return;
+    }
+
+    const siteOnly = await getPlaylistTop3NoShorts(plId);
+
+    if (siteOnly.length < 3) {
+      setNote("so_note", "Playlist 'site_only' carregou menos de 3 vídeos (ou muitos são shorts). Garanta 3 vídeos públicos e >60s.");
+    } else {
+      mountCard("so_1", siteOnly[0], { delay: 0 });
+      mountCard("so_2", siteOnly[1], { delay: 120 });
+      mountCard("so_3", siteOnly[2], { delay: 240 });
+      setNote("so_note", "");
+    }
+
+  } catch (err) {
+    console.error(err);
+    setNote("mv_note", "Erro ao carregar vídeos (ver console).");
+    setNote("so_note", "Erro ao carregar playlist (ver console).");
+  }
+}
+
+loadPage();
+
+// Rastreamento de cliques nos CTAs
+document.querySelectorAll('.hero-cta, .btn-primary, .btn-secondary').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    if(typeof gtag !== 'undefined') gtag('event','generate_lead',{event_category:'CTA',event_label:btn.textContent.trim()});
+    if(typeof fbq !== 'undefined') fbq('track','Lead');
+  });
+});
+</script>
+
+</body>
+</html>
