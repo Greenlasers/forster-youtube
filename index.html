@@ -319,6 +319,27 @@ body {
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-secondary { background: #222; color: #fff; border: 1px solid #333; }
 
+/* NAV */
+.nav{
+  display: none;
+  gap: 10px;
+  align-items: center;
+}
+.nav a{
+  font-size: 14px;
+  color: var(--muted);
+  padding: 8px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.nav a:hover{
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+}
+@media(min-width:1024px){
+  .nav{ display: flex; }
+}
+
 /* TOPBAR */
 .topbar{
   position: sticky;
@@ -446,6 +467,12 @@ footer{
       <img src="logo-forster.svg" class="topbar-logo" alt="Forster Fitness">
       <span>Forster Fitness Reviews</span>
     </a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#videos">Vídeos</a>
+      <a href="#perfis">Seu Perfil</a>
+      <a href="#consultoria">Consultoria</a>
+    </nav>
+
     <a class="topbar-cta" href="https://youtube.com/@forsterfitnessreviews" target="_blank" rel="noopener">
       Assistir no YouTube
     </a>
@@ -499,7 +526,7 @@ footer{
   </section>
 
   <!-- MOST VIEWED -->
-  <section class="section">
+  <section id="videos" class="section">
     <h2>Comece por aqui</h2>
 
     <div class="video-feature">
@@ -517,7 +544,7 @@ footer{
   </section>
 
   <!-- SITE ONLY -->
-  <section class="section">
+  <section id="perfis" class="section">
     <h2>Escolha seu perfil</h2>
 
     <div class="profile-grid video-group">
@@ -530,7 +557,7 @@ footer{
   </section>
 
   <!-- CTA -->
-  <section class="cta-section">
+  <section id="consultoria" class="cta-section">
     <h2>Decisão informada gera resultado.</h2>
     <p>
       Nosso compromisso é elevar o padrão das academias residenciais no Brasil,
