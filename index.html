@@ -113,6 +113,79 @@ body {
     drop-shadow(0 8px 24px rgba(0,0,0,0.7));
 }
 
+/* ── Logo 3D tilt + reactive glow ── */
+.logo-tilt-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.08s linear;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.logo-tilt-wrap img {
+  position: relative;
+  z-index: 1;
+  transition: filter 0.15s ease;
+}
+
+/* Glow orb — tracks mouse via --mx / --my */
+.logo-glow-orb {
+  position: absolute;
+  inset: -25%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(229,51,35,.55) 0%,
+    rgba(229,51,35,.18) 35%,
+    transparent 68%
+  );
+  filter: blur(28px);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.logo-tilt-wrap:hover .logo-glow-orb {
+  opacity: 1;
+}
+
+/* Sweep ray — every 3s */
+.logo-sweep-ray {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-sweep-ray::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,.22) 50%,
+    transparent 70%
+  );
+  transform: skewX(-12deg);
+  animation: logoSweep 3s ease-in-out infinite;
+}
+
+@keyframes logoSweep {
+  0%   { left: -60%; opacity: 0; }
+  8%   { opacity: 1; }
+  38%  { left: 120%; opacity: 0; }
+  100% { left: 120%; opacity: 0; }
+}
+
 @media(max-width:900px){
   .hero-grid {
     grid-template-columns: 1fr;
@@ -518,7 +591,11 @@ footer{
 
     <!-- LOGO -->
     <div class="hero-logo-wrapper">
-      <img src="logo-forster-black.svg" alt="Forster Fitness">
+      <div class="logo-tilt-wrap" id="logoTilt">
+        <div class="logo-glow-orb"></div>
+        <img src="logo-forster-black.svg" alt="Forster Fitness">
+        <div class="logo-sweep-ray"></div>
+      </div>
     </div>
 
   </div>
@@ -815,6 +892,56 @@ async function loadPage() {
 }
 
 loadPage();
+
+// ── Logo 3D tilt + reactive glow ──
+(function(){
+  const wrap = document.getElementById('logoTilt');
+  const orb  = wrap ? wrap.querySelector('.logo-glow-orb') : null;
+  const img  = wrap ? wrap.querySelector('img') : null;
+  if (!wrap) return;
+
+  let raf;
+  let targetRX = 0, targetRY = 0, currentRX = 0, currentRY = 0;
+
+  function lerp(a, b, t){ return a + (b - a) * t; }
+
+  function animate(){
+    currentRX = lerp(currentRX, targetRX, 0.12);
+    currentRY = lerp(currentRY, targetRY, 0.12);
+    wrap.style.transform =
+      `perspective(520px) rotateX(${currentRX.toFixed(2)}deg) rotateY(${currentRY.toFixed(2)}deg)`;
+    raf = requestAnimationFrame(animate);
+  }
+
+  wrap.addEventListener('mouseenter', function(){
+    animate();
+  });
+
+  wrap.addEventListener('mousemove', function(e){
+    const r  = wrap.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+    const dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+    targetRY =  dx * 14;
+    targetRX = -dy * 10;
+    if (orb) {
+      const mx = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+      const my = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+      orb.style.setProperty('--mx', mx + '%');
+      orb.style.setProperty('--my', my + '%');
+    }
+    if (img) img.style.filter =
+      `drop-shadow(0 24px 48px rgba(0,0,0,.9)) drop-shadow(${dx*-6}px ${dy*-6}px 18px rgba(229,51,35,.4))`;
+  });
+
+  wrap.addEventListener('mouseleave', function(){
+    targetRX = 0; targetRY = 0;
+    setTimeout(function(){
+      cancelAnimationFrame(raf);
+      wrap.style.transform = '';
+    }, 600);
+    if (img) img.style.filter = '';
+  });
+})();
 
 // Rastreamento de cliques nos CTAs
 document.querySelectorAll('.hero-cta, .btn-primary, .btn-secondary').forEach(function(btn){
